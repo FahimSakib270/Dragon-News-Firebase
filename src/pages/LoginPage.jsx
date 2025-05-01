@@ -11,6 +11,7 @@ const LoginPage = () => {
     Login(email, password)
       .then((res) => {
         const user = res.user;
+        console.log(user);
       })
       .catch((error) => {
         alert(error);

@@ -6,9 +6,9 @@ const RegisterPage = () => {
   const { createUser, setUser } = use(AuthContext);
   const handleRegister = (evt) => {
     evt.preventDefault();
-    const name = evt.target.name.value;
+    // const name = evt.target.name.value;
     const email = evt.target.email.value;
-    const photo = evt.target.photo.value;
+    // const photo = evt.target.photo.value;
     const password = evt.target.password.value;
     createUser(email, password)
       .then((res) => {

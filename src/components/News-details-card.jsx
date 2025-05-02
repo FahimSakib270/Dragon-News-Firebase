@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { FaArrowLeft } from "react-icons/fa";
 const NewsDetailsCard = ({ news }) => {
-  console.log(news);
   const navigate = useNavigate();
   return (
     <div className="space-y-5 p-3 border border-base-300">
@@ -19,5 +18,4 @@ const NewsDetailsCard = ({ news }) => {
     </div>
   );
 };
-
 export default NewsDetailsCard;

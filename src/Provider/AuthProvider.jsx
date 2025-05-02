@@ -11,8 +11,12 @@ const auth = getAuth(app);
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  // hadling loading
+  const [loading, setLoading] = useState(true);
+
   //Register user
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -20,6 +24,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubsCribed = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
     return () => {
       unSubsCribed();
@@ -33,12 +38,12 @@ const AuthProvider = ({ children }) => {
 
   //Login
   const Login = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //setting up the user
   const [user, setUser] = useState(null);
-  console.log(user);
 
   const authData = {
     user,
@@ -46,6 +51,8 @@ const AuthProvider = ({ children }) => {
     createUser,
     signOutUser,
     Login,
+    loading,
+    setLoading,
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

@@ -1,10 +1,11 @@
 import React, { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const RegisterPage = () => {
-  const { createUser, setUser } = use(AuthContext);
+  const { createUser, setUser, updateUser } = use(AuthContext);
   const [nameError, setNameError] = useState("");
+  const navigate = useNavigate();
   const handleRegister = (evt) => {
     evt.preventDefault();
     const name = evt.target.name.value;
@@ -15,12 +16,21 @@ const RegisterPage = () => {
       setNameError("");
     }
     const email = evt.target.email.value;
-    // const photo = evt.target.photo.value;
+    const photo = evt.target.photo.value;
     const password = evt.target.password.value;
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        setUser(user);
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            console.log(user);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+            setUser(user);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;

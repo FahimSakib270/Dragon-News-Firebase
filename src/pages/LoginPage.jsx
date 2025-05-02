@@ -14,7 +14,6 @@ const LoginPage = () => {
     Login(email, password)
       .then((res) => {
         const user = res.user;
-        console.log(user);
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
